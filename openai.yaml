@@ -1,0 +1,137 @@
+openapi: 3.0.1
+info:
+  title: Google Integration API
+  description: Access Gmail, Calendar, and Drive via OpenAI GPT
+  version: 1.0.0
+servers:
+  - url: https://www.googleapis.com
+
+paths:
+  /gmail/v1/users/me/drafts:
+    post:
+      operationId: createDraft
+      summary: Create a Gmail draft
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: object
+                  properties:
+                    raw:
+                      type: string
+              required: [message]
+      responses:
+        '200':
+          description: Draft created
+      security:
+        - OAuth2: [https://www.googleapis.com/auth/gmail.modify]
+
+  /calendar/v3/calendars/primary/events:
+    post:
+      operationId: createCalendarEvent
+      summary: Create a calendar event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      responses:
+        '200':
+          description: Event created
+      security:
+        - OAuth2: [https://www.googleapis.com/auth/calendar]
+
+  /calendar/v3/users/me/calendarList:
+    get:
+      operationId: listCalendars
+      summary: Get list of all calendars
+      responses:
+        '200':
+          description: List of calendars
+      security:
+        - OAuth2: [https://www.googleapis.com/auth/calendar]
+
+  /drive/v3/files:
+    get:
+      operationId: listDriveFiles
+      summary: List files from Google Drive
+      parameters:
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+          required: false
+      responses:
+        '200':
+          description: List of files
+      security:
+        - OAuth2: [https://www.googleapis.com/auth/drive]
+
+    post:
+      operationId: uploadDriveFile
+      summary: Upload a file to Google Drive
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                mimeType:
+                  type: string
+                parents:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: File uploaded
+      security:
+        - OAuth2: [https://www.googleapis.com/auth/drive]
+
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/gmail.modify: Full Gmail access
+            https://www.googleapis.com/auth/calendar: Full Calendar access
+            https://www.googleapis.com/auth/drive: Full Drive access
+
+  schemas:
+    Event:
+      type: object
+      properties:
+        summary:
+          type: string
+        location:
+          type: string
+        description:
+          type: string
+        start:
+          type: object
+          properties:
+            dateTime:
+              type: string
+              format: date-time
+            timeZone:
+              type: string
+        end:
+          type: object
+          properties:
+            dateTime:
+              type: string
+              format: date-time
+            timeZone:
+              type: string

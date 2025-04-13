@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Privacy Policy</title>
+</head>
+<body>
+  <h1>Privacy Policy</h1>
+  <p>This GPT assistant is operated privately and does not collect or store personal data from users beyond what is necessary for authorized actions via Google APIs. Data accessed via Gmail, Google Calendar, or Google Drive is used only to perform requested tasks and is not shared, stored, or analyzed beyond the scope of those tasks.</p>
+  <p>All access is authenticated via OAuth and securely scoped by Google. This GPT operates under the user's own credentials and permissions.</p>
+  <p>For questions, contact: <a href="mailto:claspeter@gmail.com">claspeter</a></p>
+</body>
+</html>

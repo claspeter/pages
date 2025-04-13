@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
-  title: Google Integration API
-  description: Access Gmail, Calendar, and Drive via OpenAI GPT
+  title: Google Integration API for GPT
+  description: Full-access integration with Gmail, Google Calendar, and Google Drive.
   version: 1.0.0
 servers:
   - url: https://www.googleapis.com
@@ -108,6 +108,8 @@ components:
             https://www.googleapis.com/auth/gmail.modify: Full Gmail access
             https://www.googleapis.com/auth/calendar: Full Calendar access
             https://www.googleapis.com/auth/drive: Full Drive access
+            https://www.googleapis.com/auth/userinfo.email: Read email address
+            https://www.googleapis.com/auth/userinfo.profile: Read profile info
 
   schemas:
     Event:
